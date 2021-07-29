@@ -1,0 +1,10 @@
+*.iml
+*.png
+
+.idea
+
+target
+
+.DS_Store
+.DS_Store?
+src/main/java/.DS_Store
