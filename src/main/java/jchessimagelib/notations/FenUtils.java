@@ -7,6 +7,7 @@ import jchessimagelib.chess.Square;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 public class FenUtils {
 
     private static final Pattern rankPattern = Pattern.compile("[rnbqkpRNBQKP12345678]+");
+    private static final Pattern movePattern = Pattern.compile(" [wb] ");
 
     public final static Map<String, Piece> blackPieceMap = Map.of(
             "r", Piece.from(PieceType.ROOK, PieceColor.BLACK),
@@ -78,6 +80,16 @@ public class FenUtils {
             }
         }
         return "8";
+    }
+
+    public static PieceColor getTurn(String fen) {
+        Matcher m = movePattern.matcher(fen);
+        if (!m.find()) {
+            return PieceColor.WHITE;
+        }
+
+        String move = m.group().trim();
+        return Objects.equals("b", move) ? PieceColor.BLACK : PieceColor.WHITE;
     }
 
 }

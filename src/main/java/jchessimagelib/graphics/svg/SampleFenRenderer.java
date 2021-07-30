@@ -1,6 +1,7 @@
 package jchessimagelib.graphics.svg;
 
 import jchessimagelib.chess.Piece;
+import jchessimagelib.chess.PieceColor;
 import jchessimagelib.chess.Square;
 import jchessimagelib.chess.SquareColor;
 import jchessimagelib.notations.FenNotation;
@@ -11,22 +12,24 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.awt.image.AffineTransformOp.TYPE_NEAREST_NEIGHBOR;
 
 public class SampleFenRenderer {
 
-    public static BufferedImage renderFen(FenNotation fen) {
+    public static BufferedImage renderFen(FenNotation fen, PieceColor move) {
         BufferedImage result = new BufferedImage(8 * 45, 8 * 45, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = result.createGraphics();
         for (int f = 0; f < 8; ++f) {
             for (int r = 0; r < 8; ++r) {
                 Square square = Square.from(f, r);
                 Optional<Piece> piece = FenUtils.getPiece(fen.getFen(), square);
+                Square translatedSquare = rotate(square, move);
                 piece.ifPresentOrElse(
-                        (p) -> renderPiece(g2d, square, p),
-                        () -> renderSquare(g2d, square)
+                        (p) -> renderPiece(g2d, translatedSquare, p),
+                        () -> renderSquare(g2d, translatedSquare)
                 );
             }
         }
@@ -57,5 +60,13 @@ public class SampleFenRenderer {
 
     private static int[] getCanvasCoordinates(Square square) {
         return new int[] {square.getFile() * 45, (7 - square.getRank()) * 45};
+    }
+
+    public static Square rotate(Square original, PieceColor move) {
+        if (Objects.equals(PieceColor.WHITE, move)) {
+            return original;
+        }
+
+        return Square.from(7 - original.getFile(), 7 - original.getRank());
     }
 }

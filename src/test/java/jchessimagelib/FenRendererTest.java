@@ -27,6 +27,42 @@ class FenRendererTest {
         assertImage("/e4c5nf3.png", result);
     }
 
+    @Test
+    void renderWhiteForced() throws IOException {
+        BufferedImage result = FenRenderer.renderWhite(
+                "4k3/8/8/8/8/8/8/4K3 b - - 0 1"
+        );
+
+        assertImage("/white.png", result);
+    }
+
+    @Test
+    void renderBlackForced() throws IOException {
+        BufferedImage result = FenRenderer.renderBlack(
+                "4k3/8/8/8/8/8/8/4K3 w - - 0 1"
+        );
+
+        assertImage("/black.png", result);
+    }
+
+    @Test
+    void renderWhite() throws IOException {
+        BufferedImage result = FenRenderer.render(
+                "4k3/8/8/8/8/8/8/4K3 w - - 0 1"
+        );
+
+        assertImage("/white.png", result);
+    }
+
+    @Test
+    void renderBlack() throws IOException {
+        BufferedImage result = FenRenderer.renderBlack(
+                "4k3/8/8/8/8/8/8/4K3 b - - 0 1"
+        );
+
+        assertImage("/black.png", result);
+    }
+
     private void assertImage(String expectedImagePath, BufferedImage result) throws IOException {
         InputStream expectedStream = FenRendererTest.class.getResourceAsStream(expectedImagePath);
         byte[] expected = expectedStream.readAllBytes();
