@@ -7,6 +7,7 @@
     <groupId>com.github.raffinate</groupId>
     <artifactId>jchessimagelib</artifactId>
     <version>0.0.1</version>
+    <url>https://github.com/Raffinate/jchessimagelib</url>
 
     <licenses>
         <license>
@@ -15,6 +16,10 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <scm>
+        <url>https://github.com/Raffinate/jchessimagelib</url>
+    </scm>
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
@@ -32,11 +37,6 @@
             <artifactId>org.jfree.svg</artifactId>
             <version>5.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.xmlgraphics</groupId>-->
-<!--            <artifactId>batik-all</artifactId>-->
-<!--            <version>1.14</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-batik</artifactId>
